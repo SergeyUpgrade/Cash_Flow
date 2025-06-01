@@ -1,0 +1,109 @@
+{% extends 'dds/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Статусы</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    {{ status_form.as_p }}
+                    <button type="submit" name="status_submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+                
+                <ul class="list-group">
+                    {% for status in statuses %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ status.name }}
+                        <a href="{% url 'delete_status' status.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Типы</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    {{ type_form.as_p }}
+                    <button type="submit" name="type_submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+                
+                <ul class="list-group">
+                    {% for type in types %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ type.name }}
+                        <a href="{% url 'delete_type' type.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Категории</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    {{ category_form.as_p }}
+                    <button type="submit" name="category_submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+                
+                <ul class="list-group">
+                    {% for category in categories %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ category.name }} ({{ category.type }})
+                        <a href="{% url 'delete_category' category.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Подкатегории</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    {{ subcategory_form.as_p }}
+                    <button type="submit" name="subcategory_submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+                
+                <ul class="list-group">
+                    {% for subcategory in subcategories %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ subcategory.name }} ({{ subcategory.category }})
+                        <a href="{% url 'delete_subcategory' subcategory.pk %}" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
