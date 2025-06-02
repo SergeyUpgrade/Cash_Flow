@@ -1,0 +1,17 @@
+{% extends 'dds/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Подтверждение удаления</h5>
+    </div>
+    <div class="card-body">
+        <p>Вы уверены, что хотите удалить подкатегорию "{{ subcategory.name }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url 'reference_management' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
