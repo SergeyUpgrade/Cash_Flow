@@ -81,6 +81,12 @@ def record_delete(request, pk):
 
 
 def reference_management(request):
+    # Инициализируем все формы заранее
+    status_form = StatusForm(prefix='status')
+    type_form = TypeForm(prefix='type')
+    category_form = CategoryForm(prefix='category')
+    subcategory_form = SubcategoryForm(prefix='subcategory')
+
     if request.method == 'POST':
         # Обработка форм для справочников
         if 'status_submit' in request.POST:
@@ -103,11 +109,6 @@ def reference_management(request):
             if subcategory_form.is_valid():
                 subcategory_form.save()
                 return redirect('reference_management')
-    else:
-        status_form = StatusForm(prefix='status')
-        type_form = TypeForm(prefix='type')
-        category_form = CategoryForm(prefix='category')
-        subcategory_form = SubcategoryForm(prefix='subcategory')
 
     # Получение всех записей справочников
     statuses = Status.objects.all()

@@ -61,12 +61,17 @@ class Record(models.Model):
     comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
 
     def clean(self):
-        # Проверка, что подкатегория принадлежит выбранной категории
-        if self.subcategory.category != self.category:
+        """Проверка связей между полями"""
+        # Проверяем, что все обязательные связи установлены
+        if not hasattr(self, 'category') or not hasattr(self, 'subcategory'):
+            raise ValidationError("Необходимо указать категорию и подкатегорию")
+
+        # Проверяем соответствие подкатегории категории
+        if self.subcategory.category_id != self.category_id:
             raise ValidationError("Выбранная подкатегория не принадлежит выбранной категории")
 
-        # Проверка, что категория принадлежит выбранному типу
-        if self.category.type != self.type:
+        # Проверяем соответствие категории типу
+        if self.category.type_id != self.type_id:
             raise ValidationError("Выбранная категория не принадлежит выбранному типу")
 
     def __str__(self):
